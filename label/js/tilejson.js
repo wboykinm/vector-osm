@@ -16,7 +16,7 @@ L.TileLayer.d3_geoJSON =  L.TileLayer.extend({
             var point = map.latLngToLayerPoint(new L.LatLng(d[1],d[0]));
             return [point.x,point.y];
         });
-        this.on("tileunload",function(d) {
+        this.on('tileunload',function(d) {
             if (d.tile.xhr) d.tile.xhr.abort();
             if (d.tile.nodes) d.tile.nodes.remove();
             d.tile.nodes = null;
@@ -30,20 +30,24 @@ L.TileLayer.d3_geoJSON =  L.TileLayer.extend({
         if (!tile.nodes && !tile.xhr) {
             tile.xhr = d3.json(this.getTileUrl(tilePoint),function(geoJson) {
                 tile.xhr = null;
-                tile.nodes = d3.select(map._container).select("svg").append("g");
-                tile.nodes.selectAll("path")
+                tile.nodes = d3.select(map._container).select('svg').append('g');
+                tile.nodes.selectAll('path')
                     .data(geoJson.features).enter()
-                .append("path")
-                    .attr("d", self._path)
-                    .attr("class", self.options.class)
-                    .attr("style", self.options.style)
-                    .attr("id", self.options.id)
                 .append('text')
-                .append("svg:textpath")
-                    .attr("xlink:href", function(d) { return d.geometry.coordinates[0]})
-                    .text('hello')
-                    .attr('x',10)
-                    .attr('y',10)
+                .append('textPath')
+                    .attr('xlink:href', self.options.id2)
+                    .attr('class','text')
+                    .text(self.options.text);
+                tile.nodes.selectAll('path')
+                    .data(geoJson.features).enter()
+                .append('path')
+                    .attr('d', self._path)
+                    .attr('class', self.options.class)
+                    .attr('style', self.options.style)
+                    .attr('viewBox','0,0,100,100')
+                    .attr('id', self.options.id)
+                    
+                
             });
         }
     }
