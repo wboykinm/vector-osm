@@ -36,13 +36,17 @@ path.rail {
 }
 
 .text{
-	fill-opacity:.5;
-	dominant-baseline: middle;
+	fill-opacity:.9;
+	/*dominant-baseline: middle;*/
+	font-family: 'Monoton', cursive;
+	font-color: white;
+	text-shadow: 2px 2px #e2e3e3;
+	font-size: 24px;
 }
 
 path.label {
 	stroke-dasharray:5,5;
-	stroke:grey;
+	stroke:#000;
 }
 
 /*Polygon features*/
